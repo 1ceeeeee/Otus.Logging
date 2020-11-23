@@ -11,11 +11,20 @@ namespace Otus.Service2.Controllers
   {
     public async Task<string> Index()
     {
+      
+      /*
+       * HttpClientDiagnosticSource.Push(HttpRequestMessage)
+       * 
+       * HttpClientDiagnosticSource.Subscribe(Action<HttpRequestMessage> func)
+       * 
+       */
+      
       var httpClient = new HttpClient
       {
         BaseAddress = new Uri("https://localhost:5003")
       };
 
+      
       var forecast = await httpClient.GetStringAsync("/weatherforecast");
       
       return forecast;

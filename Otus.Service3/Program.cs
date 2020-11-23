@@ -21,7 +21,6 @@ namespace Otus.Service3
         .Enrich.FromLogContext()
         .WriteTo.Console()
 
-        // .WriteTo.Console(new RenderedCompactJsonFormatter())
         .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
         {
           AutoRegisterTemplate = true,
@@ -29,7 +28,7 @@ namespace Otus.Service3
         })
         
         .CreateLogger();
-
+      
       try
       {
         Log.Information("Starting web host");

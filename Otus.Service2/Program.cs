@@ -1,15 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
-using Serilog.Formatting.Compact;
 using Serilog.Sinks.Elasticsearch;
 
 namespace Otus.Service2
@@ -24,14 +18,15 @@ namespace Otus.Service2
         .MinimumLevel.Information()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
         .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+        
         .Enrich.FromLogContext()
+        
         .WriteTo.Console()
 
-        // .WriteTo.Console(new RenderedCompactJsonFormatter())
         .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
         {
           AutoRegisterTemplate = true,
-          AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+          AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
         })
         
         .CreateLogger();
